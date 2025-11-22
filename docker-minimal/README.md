@@ -6,9 +6,12 @@ OBS から RTMP でプッシュした映像を nginx-rtmp で受け取り、HLS 
 ## イメージ図
 ```mermaid
 flowchart LR
-    A[配信者] --> B["OBS\n(RTMP push)"]
-    B --> C["nginx-rtmp\n(RTMP ingest)"]
-    C --> D["HLS 出力\n(m3u8 & ts)"]
+    A[配信者] --> B["OBS
+    (RTMP push)"]
+    B --> C["nginx-rtmp
+    (RTMP ingest)"]
+    C --> D["HLS 出力
+    (m3u8 & ts)"]
     D --> E[ブラウザ再生]
 ```
 
