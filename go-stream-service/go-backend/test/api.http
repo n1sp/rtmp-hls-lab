@@ -1,0 +1,6 @@
+### 成功系
+GET http://localhost:8081/api/auth/publish?name=test_allowed
+
+
+### 失敗系
+GET http://localhost:8081/api/auth/publish?name=test_rejected
