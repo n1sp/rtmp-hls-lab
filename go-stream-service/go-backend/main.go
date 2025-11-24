@@ -46,7 +46,7 @@ func main() {
 
 // StreamKeyの認証ロジック関数
 func IsAllowedStreamKey(key string) bool {
-	if key == "test_allowed" {
+	if key == GetEnvString(key, "test_allowed") {
 		return true
 	} else {
 		return false
