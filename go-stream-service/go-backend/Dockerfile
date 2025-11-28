@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # ビルド
-RUN go build -o /go-backend main.go
+RUN go build -o /go-backend .
 
 # ポート公開（ドキュメント的に）
 EXPOSE 8081

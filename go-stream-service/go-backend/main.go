@@ -14,7 +14,7 @@ func publishHandler(w http.ResponseWriter, r *http.Request) {
 
 	// *** 認証ロジックの仮実装 (Goバックエンド連携テスト用) ***
 	// ストリームキーが 'test_allowed' なら許可、それ以外は拒否
-	if streamKey == "test_allowed" {
+	if IsAllowedStreamKey(streamKey) {
 		// 許可（200）
 		w.WriteHeader(http.StatusOK)
 		// bodyに書き込み
@@ -42,4 +42,14 @@ func main() {
 		log.Fatalf("バックエンドサーバーの起動に失敗しました。 %v", err)
 	}
 
+}
+
+// StreamKeyの認証ロジック関数
+func IsAllowedStreamKey(streamKey string) bool {
+	AUTH_STREAM_KEY := "AUTH_STREAM_KEY"
+	if streamKey == GetEnvString(AUTH_STREAM_KEY, "xxxxxxxxxx") {
+		return true
+	} else {
+		return false
+	}
 }
