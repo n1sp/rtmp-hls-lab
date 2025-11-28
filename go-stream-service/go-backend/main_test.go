@@ -5,6 +5,11 @@ import (
 	"testing"
 )
 
+func TestPublishHandler(t *testing.T) {
+	// ここにpublishHandlerのテストコードを実装します
+
+}
+
 func TestIsAllowedStreamKey(t *testing.T) {
 	// テスト用に一時的に環境変数を設定
 	os.Setenv("AUTH_STREAM_KEY", "test_allowed")
