@@ -50,5 +50,7 @@ func main() {
 func IsAllowedStreamKey(streamKey string) bool {
 	AUTH_STREAM_KEYS := "AUTH_STREAM_KEYS"
 	keys := strings.Split(GetEnvString(AUTH_STREAM_KEYS, "xxxxxxxxxx"), ",")
-	return slices.Contains(keys, streamKey)
+	return slices.ContainsFunc(keys, func(k string) bool {
+		return strings.TrimSpace(k) == streamKey
+	})
 }

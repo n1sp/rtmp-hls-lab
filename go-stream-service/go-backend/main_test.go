@@ -79,3 +79,17 @@ func TestIsAllowedStreamKeys(t *testing.T) {
 		t.Error("falseを期待していましたが、trueが返されました。")
 	}
 }
+
+func TestIsAllowedStreamKeysIncludeSpace(t *testing.T) {
+	// テスト用に一時的に環境変数を設定
+	t.Setenv("AUTH_STREAM_KEYS", "key1,key2,key3, key4,key5")
+
+	const allowedKey = "key4"
+	if IsAllowedStreamKey(allowedKey) == false {
+		t.Error("trueを期待していましたが、falseが返されました。")
+	}
+	disallowedKey := "key6"
+	if IsAllowedStreamKey(disallowedKey) {
+		t.Error("falseを期待していましたが、trueが返されました。")
+	}
+}
