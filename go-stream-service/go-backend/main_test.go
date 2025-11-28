@@ -11,7 +11,7 @@ import (
 
 func TestPublishHandler_Allowed(t *testing.T) {
 	// テスト用に一時的に環境変数を設定
-	os.Setenv("AUTH_STREAM_KEY", "valid_key")
+	os.Setenv("AUTH_STREAM_KEYS", "valid_key")
 
 	req := httptest.NewRequest("POST", "/api/auth/publish", strings.NewReader("name=valid_key"))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -32,7 +32,7 @@ func TestPublishHandler_Allowed(t *testing.T) {
 
 func TestPublishHandler_Rejected(t *testing.T) {
 	// テスト用に一時的に環境変数を設定
-	os.Setenv("AUTH_STREAM_KEY", "invalid_key")
+	os.Setenv("AUTH_STREAM_KEYS", "invalid_key")
 
 	req := httptest.NewRequest("POST", "/api/auth/publish", strings.NewReader("name=valid_key"))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -53,7 +53,7 @@ func TestPublishHandler_Rejected(t *testing.T) {
 
 func TestIsAllowedStreamKey(t *testing.T) {
 	// テスト用に一時的に環境変数を設定
-	t.Setenv("AUTH_STREAM_KEY", "test_allowed")
+	t.Setenv("AUTH_STREAM_KEYS", "test_allowed")
 
 	const allowedKey = "test_allowed"
 	if IsAllowedStreamKey(allowedKey) == false {
@@ -64,4 +64,18 @@ func TestIsAllowedStreamKey(t *testing.T) {
 		t.Error("falseを期待していましたが、trueが返されました。")
 	}
 
+}
+
+func TestIsAllowedStreamKeys(t *testing.T) {
+	// テスト用に一時的に環境変数を設定
+	t.Setenv("AUTH_STREAM_KEYS", "key1,key2,key3,key4,key5")
+
+	const allowedKey = "key4"
+	if IsAllowedStreamKey(allowedKey) == false {
+		t.Error("trueを期待していましたが、falseが返されました。")
+	}
+	disallowedKey := "key6"
+	if IsAllowedStreamKey(disallowedKey) {
+		t.Error("falseを期待していましたが、trueが返されました。")
+	}
 }

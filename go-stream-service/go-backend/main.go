@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"slices"
+	"strings"
 )
 
 func publishHandler(w http.ResponseWriter, r *http.Request) {
@@ -46,10 +48,7 @@ func main() {
 
 // StreamKeyの認証ロジック関数
 func IsAllowedStreamKey(streamKey string) bool {
-	AUTH_STREAM_KEY := "AUTH_STREAM_KEY"
-	if streamKey == GetEnvString(AUTH_STREAM_KEY, "xxxxxxxxxx") {
-		return true
-	} else {
-		return false
-	}
+	AUTH_STREAM_KEYS := "AUTH_STREAM_KEYS"
+	keys := strings.Split(GetEnvString(AUTH_STREAM_KEYS, "xxxxxxxxxx"), ",")
+	return slices.Contains(keys, streamKey)
 }
