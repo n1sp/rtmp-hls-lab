@@ -53,11 +53,7 @@ func TestPublishHandler_Rejected(t *testing.T) {
 
 func TestIsAllowedStreamKey(t *testing.T) {
 	// テスト用に一時的に環境変数を設定
-	os.Setenv("AUTH_STREAM_KEY", "test_allowed")
-
-	t.Cleanup(func() {
-		os.Unsetenv("AUTH_STREAM_KEY")
-	})
+	t.Setenv("AUTH_STREAM_KEY", "test_allowed")
 
 	const allowedKey = "test_allowed"
 	if IsAllowedStreamKey(allowedKey) == false {
